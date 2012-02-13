@@ -1,17 +1,14 @@
 import groovy.xml.*
 
-process()
+process("All_Roads_Msa.kml","All_Roads_Msa.extended.kml")
 
 
-def process() {
-	def file = new File("All_Roads_Msa.kml")
-	println "Processing ${file}"
+def process(input,output) {
+	def file = new File(input)
 	def placemarks = new XmlSlurper().parse(file)
 	
-	println  "Name ${placemarks.Document.name}"
-	
 	def mb = new groovy.xml.StreamingMarkupBuilder()
-	new OutputStreamWriter(new FileOutputStream("All_Roads_Msa.extended.kml"),'utf-16') << mb.bind {
+	new OutputStreamWriter(new FileOutputStream(output),'utf-16') << mb.bind {
 	    mkp.xmlDeclaration()
 		mkp.declareNamespace( kml: "http://earth.google.com/kml/2.0" )
 	  
@@ -63,7 +60,7 @@ def getValue(str, name) {
 	rows.eachWithIndex { it, i ->
 		if (it.td[0].font.b.text() == name )
 		{
-			println "Found ${name} = ${it.td[1].font}"
+/*			println "Found ${name} = ${it.td[1].font}"*/
 			res = it.td[1].font.text()
 		}
 	}

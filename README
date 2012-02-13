@@ -1,0 +1,16 @@
+This script fixes an issue with the output from the freeware shp2kml(http://www.zonums.com/shp2kml.html) where additional attributes in a shape file are only exported as part of an information balloon and not as independent attributes as ogr2ogr would do. Really, I'd just use ogr2ogr but in my case I was having an issue with the projection
+
+HOW TO:
+=======
+1. First you need Groovy & Java
+2. Pass in the input and output files into the process method.
+	e.g process("All_Roads_Msa.kml","All_Roads_Msa.extended.kml")
+3. Declare you schema elements
+	e.g 
+	Schema {
+		SimpleField(name:"OBJECTID", type:"int")
+		SimpleField(name:"NAME", type:"String")
+		SimpleField(name:"RD_SUFFIX", type:"String")
+		SimpleField(name:"CITY_NAME", type:"CITY_NAME")
+	}
+4. Run :-)
